@@ -1,4 +1,4 @@
-import {
+var {
 	GraphQLSchema,
 	GraphQLObjectType,
 	GraphQLString,
@@ -6,7 +6,7 @@ import {
 	GraphQLInt,
 	GraphQLFloat,
 	GraphQLBoolean
-} from 'graphql';
+} = require('graphql');
 
 const subredditType = module.exports = new GraphQLObjectType({
 	name:'Subreddit',
@@ -74,4 +74,4 @@ const subredditType = module.exports = new GraphQLObjectType({
 });
 
 const redditFlairType = require('./redditFlairType');
-const redditLinkType = require('./redditLinkType');
+const redditLinkType = require('./Link');

@@ -1,4 +1,4 @@
-import {
+var {
 	GraphQLSchema,
 	GraphQLObjectType,
 	GraphQLString,
@@ -6,7 +6,7 @@ import {
 	GraphQLInt,
 	GraphQLFloat,
 	GraphQLBoolean
-} from 'graphql';
+} = require('graphql');
 
 const Comment = module.exports = new GraphQLObjectType({
 	name:'Comment',

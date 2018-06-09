@@ -1,8 +1,8 @@
-import cors from 'cors';
-import express from 'express';
-import graphqlHTTP from 'express-graphql'
-import redditSchema from '../schema';
-import logger from 'morgan';
+const cors = require('cors');
+const express = require('express');
+const graphqlHTTP = require('express-graphql');
+const redditSchema = require('../schema');
+const logger = require('morgan');
 
 
 const app = express()
@@ -15,7 +15,7 @@ app.use(logger('dev'));
 app.all('/graphql', (req, res) => res.redirect('/'));
 
 app.use('/', graphqlHTTP((req) => ({
-  schema: redditSchema
+  schema: redditSchema,
   graphiql: true
 })));
 

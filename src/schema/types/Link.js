@@ -1,4 +1,4 @@
-import {
+var {
 	GraphQLSchema,
 	GraphQLObjectType,
 	GraphQLString,
@@ -6,7 +6,7 @@ import {
 	GraphQLInt,
 	GraphQLFloat,
 	GraphQLBoolean
-} from 'graphql';
+} = require('graphql');
 
 
 const Link = module.exports = new GraphQLObjectType({
@@ -68,14 +68,14 @@ const Link = module.exports = new GraphQLObjectType({
 		url:					{type:GraphQLString},
 		ups:					{type:GraphQLInt},
 		user_reports:			{type:new GraphQLList(GraphQLString)},
-		visited:				{type:GraphQLBoolean},	
+		visited:				{type:GraphQLBoolean}
 		/*--------------------------nested------------------------*/
 		/*replies:				{
 											type:new GraphQLList(redditCommentType),
 											resolve: ({id},_,context) => {
 												return replyLoader.load( JSON.stringify({'id':id,'context':context}) )
-											}*/
-									} // @ REFACTOR
+											}
+									}*/ // @ REFACTOR
 		/*author_trophy:			{type:new GraphQLList(redditTrophyType),
 									resolve: ({author}) => redditAPI(resolveName='trophy', id=author.name, args={})},
 		author_overview:		{type:new GraphQLList(redditOverviewType),

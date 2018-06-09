@@ -1,5 +1,5 @@
-import redditAPI from '../api';
-import {
+const redditAPI = require('../api');
+var {
 	GraphQLSchema,
 	GraphQLObjectType,
 	GraphQLString,
@@ -7,19 +7,19 @@ import {
 	GraphQLInt,
 	GraphQLFloat,
 	GraphQLBoolean
-} from 'graphql';
+} = require('graphql');
 
-import subredditType from './types/Subreddit';
-import redditLinkType from './types/Link';
-import redditCommentType  from './types/Comment';
+const subredditType = require('./types/Subreddit');
+const redditLinkType = require('./types/Link');
+const redditCommentType  = require('./types/Comment');
 
-
+console.log(redditAPI)
 const redditQueryType = new GraphQLObjectType({
 	name:'redditQuery',
 	description:'',
 	fields: () => ({
 		searchSubredditTopics:{
-			type:new GraphQLList(subreddditType),
+			type:new GraphQLList(subredditType),
 			args:{
 				query:{type:GraphQLString},
 			},
@@ -29,7 +29,7 @@ const redditQueryType = new GraphQLObjectType({
 			}		
 		},
 		searchSubreddits:{
-			type:new GraphQLList(subreddditType),
+			type:new GraphQLList(subredditType),
 			args:{
 				query:{type:GraphQLString}
 			},
@@ -92,7 +92,7 @@ const redditQueryType = new GraphQLObjectType({
 			resolve: (_,args,context) => redditAPI(context, resolveName='searchSubredditNames', id='', args=args)
 		},
 		getPopularSubreddits:{
-			type:new GraphQLList(subreddditType),
+			type:new GraphQLList(subredditType),
 			description:'Gets a list of subreddits, arranged by popularity.Returns A Listing containing Subreddits',
 			args:{
 				options:	{type:GraphQLInt,defaultValue:0},
@@ -105,7 +105,7 @@ const redditQueryType = new GraphQLObjectType({
 		},
 		
 		getNewSubreddits:{
-			type:new GraphQLList(subreddditType),
+			type:new GraphQLList(subredditType),
 			description:'Gets a list of subreddits, arranged by age. Returns A Listing containing Subreddits',
 			args:{
 				options:	{type:GraphQLInt,defaultValue:0},
@@ -118,7 +118,7 @@ const redditQueryType = new GraphQLObjectType({
 		},
 		
 		getGoldSubreddits:{
-			type:new GraphQLList(subreddditType),
+			type:new GraphQLList(subredditType),
 			description:'Gets a list of gold-exclusive subreddits. Returns A Listing containing Subreddits',
 			args:{
 				options:	{type:GraphQLInt,defaultValue:0},
@@ -131,7 +131,7 @@ const redditQueryType = new GraphQLObjectType({
 		},
 		
 		getDefaultSubreddits:{
-			type:new GraphQLList(subreddditType),
+			type:new GraphQLList(subredditType),
 			description:'Gets a list of default subreddits. Returns A Listing containing Subreddits',
 			args:{
 				options:	{type:GraphQLInt,defaultValue:0},
@@ -212,4 +212,4 @@ const redditQueryType = new GraphQLObjectType({
 	})
 });
 
-export default new GraphQLSchema({query: redditQueryType});
+module.exports = new GraphQLSchema({query: redditQueryType});

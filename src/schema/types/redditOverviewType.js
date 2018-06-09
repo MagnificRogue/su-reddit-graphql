@@ -9,8 +9,8 @@ var {
 } = require('graphql');
 
 
-const redditCommentType = require('./redditCommentType');
-const redditLinkType = require('./redditLinkType');
+const redditCommentType = require('./Comment');
+const redditLinkType = require('./Link');
 
 const resolveType = (data) => {
 	if (data.body){

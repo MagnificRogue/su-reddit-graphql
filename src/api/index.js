@@ -1,4 +1,4 @@
-import Promise from 'bluebird'
+const Promise = require('bluebird')
 
 function redditAPI(resolveName, id, args){
 
@@ -6,10 +6,10 @@ function redditAPI(resolveName, id, args){
 	const snoowrap = require('snoowrap');
 	const r = new snoowrap({
 			userAgent: 	'social monitoring research',
-			accessToken: 
-			refreshToken: 
-			clientId: 
-			clientSecret: 
+			accessToken: '',
+			refreshToken: '',
+			clientId: '',
+			clientSecret: ''
 	});
 
 
@@ -363,4 +363,4 @@ function wait(ms){
 	}
 }
 
-export default redditAPI
+module.exports = redditAPI;
