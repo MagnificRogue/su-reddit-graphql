@@ -1,20 +1,30 @@
 const Promise = require('bluebird')
+const snoowrap = require('snoowrap');
 
-function redditAPI(resolveName, id, args){
+function redditAPI(context, resolveName, id, args){
 
-
-	const snoowrap = require('snoowrap');
-	const r = new snoowrap({
-			userAgent: 	'social monitoring research',
-			accessToken: '',
-			refreshToken: '',
-			clientId: '',
-			clientSecret: ''
-	});
-
+	let authorization = JSON.parse(context.headers.authorization)
 
 	return new Promise((resolve,reject) =>{
-		console.log(resolveName)
+		
+		let unauthorized =  !authorization || !authorization.accessToken
+							|| !authorization.refreshToken ||  !authorization.clientId
+							|| !authorization.clientSecret;
+							
+		
+		if (unauthorized) {
+			reject(new Error('Unauthorized Request'));
+		}
+
+
+		const r = new snoowrap({
+				userAgent: 	'social monitoring research',
+				accessToken: authorization.accessToken ,
+				refreshToken: authorization.refreshToken,
+				clientId: authorization.clientId,
+				clientSecret: authorization.clientSecret
+		});
+
 		switch(resolveName){
 			case 'search':
 				args.limit = args.count;
@@ -31,7 +41,6 @@ function redditAPI(resolveName, id, args){
 						resolve(listing);
 					})
 					.catch((err) => {
-						console.log(err)
 						reject(err)
 					})
 				} else {
@@ -39,7 +48,6 @@ function redditAPI(resolveName, id, args){
 						resolve(listing);
 					})
 					.catch((err) =>{
-						console.log(err);
 						reject(err)
 					})
 				}
@@ -60,9 +68,11 @@ function redditAPI(resolveName, id, args){
 
 				r.searchSubreddits(args).then((listing) =>  {
 				listing.fetchAll().then((data) =>{
+					console.log(data);
 						resolve(data);
 					})
 					.catch((err) =>{
+						console.log(err);
 						reject(err)
 					})
 				})
@@ -93,7 +103,6 @@ function redditAPI(resolveName, id, args){
 					resolve(data);
 				})
 				.catch((err) =>{
-					console.log('ERR')
 					reject(err)
 				});
 				break;
@@ -330,8 +339,7 @@ function redditAPI(resolveName, id, args){
 				
 				
 			default:
-				console.log('sorry we can\'t find matching resolve type:' + resolveName);
-				resolve(null);
+				reject(resolveName)
 		}
 	});
 }

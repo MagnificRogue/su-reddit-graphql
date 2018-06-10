@@ -13,7 +13,6 @@ const subredditType = require('./types/Subreddit');
 const redditLinkType = require('./types/Link');
 const redditCommentType  = require('./types/Comment');
 
-console.log(redditAPI)
 const redditQueryType = new GraphQLObjectType({
 	name:'redditQuery',
 	description:'',
