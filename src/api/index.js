@@ -8,8 +8,7 @@ function redditAPI(context, resolveName, id, args){
 	return new Promise((resolve,reject) =>{
 		
 		let unauthorized =  !authorization || !authorization.accessToken
-							|| !authorization.refreshToken ||  !authorization.clientId
-							|| !authorization.clientSecret;
+							|| !authorization.refreshToken;
 							
 		
 		if (unauthorized) {
@@ -21,8 +20,8 @@ function redditAPI(context, resolveName, id, args){
 				userAgent: 	'social monitoring research',
 				accessToken: authorization.accessToken ,
 				refreshToken: authorization.refreshToken,
-				clientId: authorization.clientId,
-				clientSecret: authorization.clientSecret
+				clientId: process.env.CLIENT_ID,
+				clientSecret: process.env.CLIENT_SECRET 
 		});
 
 		switch(resolveName){

@@ -6,6 +6,11 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const app = express()
 
+if (!process.env.CLIENT_ID || !process.env.CLIENT_SECRET) {
+	console.error('Error, Environment is missing a CLIENT_ID and CLIENT_SECRET necessary to access the Reddit API');
+	process.exit(1);
+}
+
 app.use(cors());
 //app.use(bodyParser.json())
 app.use(logger('dev'));
